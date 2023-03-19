@@ -1,3 +1,9 @@
+const path = require('path');
+const auth = require('http-auth');
+const basic = auth.basic({
+    file: path.join(_dirname, '../user.htpasswd'),
+});
+
 const express = require('express');
 const mongoose = require('mongoose');
 const { route } = require('../app');
@@ -37,5 +43,17 @@ router.post('/',
         });
     }
 });
+
+router.get('/registrations', (req, res) => {
+    Registration.find()
+    .then((registrations) => {
+    res.render('index', {title: 'Listing registrations', registrations });
+    })
+    .catch(() => { res.send('Sorry! Something went wrong.'); });
+});
+
+router.get('./registrations', basic.check((req,res) => {
+    
+}));
 
 module.exports = router;
