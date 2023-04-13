@@ -1,7 +1,7 @@
 const path = require('path');
 const auth = require('http-auth');
 const basic = auth.basic({
-    file: path.join(_dirname, '../user.htpasswd'),
+    file: path.join(__dirname, '../users.htpasswd'),
 });
 
 const express = require('express');
@@ -53,7 +53,7 @@ router.get('/registrations', (req, res) => {
 });
 
 router.get('./registrations', basic.check((req,res) => {
-    
+
 }));
 
 module.exports = router;
